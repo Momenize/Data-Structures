@@ -4,7 +4,7 @@ namespace DS_LinkedList{
         internal string _data;
         internal Node next;
         internal Node last;
-
+        internal Node down;
         public Node(string data)
         {
             _data = data; 

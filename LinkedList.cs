@@ -1,4 +1,4 @@
-using System.ComponentModel.Design;
+﻿using System.ComponentModel.Design;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata.Ecma335;
 
@@ -281,7 +281,7 @@ namespace DS_LinkedList{
         }
 
         
-
+        
         public Node Search(string data)
         {
             Node node = _tail;
@@ -307,8 +307,80 @@ namespace DS_LinkedList{
         }
         
         
+        public static void PrintTwoDimList(Node[,] nodes)
+        {
+            if (nodes[0, 0] == null)
+            {
+                return;
+            }
 
+            
+            for(int i = 0; i < nodes.GetLength(0); i++)
+            {
+                for(int j = 0; j < nodes.GetLength(1); j++)
+                {
+                    
+                    if(j == nodes.GetLength(1) - 1)
+                    {
+                        Console.WriteLine(nodes[i, j]._data + "\t-->\tNULL");
+                        continue;
+                    }
+                    Console.Write(nodes[i, j]._data + "\t-->\t");
+                }
+                Console.WriteLine();
+                for(int k = 0; k <= nodes.GetLength(1); k++)
+                {
+                    Console.Write("|\t\t");
+                }
+                Console.WriteLine();
+                for (int k = 0; k <= nodes.GetLength(1); k++)
+                {
+                    Console.Write($"▼\t\t");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+
+            for (int k = 0; k <= nodes.GetLength(1); k++)
+            {
+                Console.Write("NULL\t\t");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
         
+        public static Node[,] TwoDimlist(string[,] mat)
+        {
+            Node[,] nodes = new Node[mat.GetLength(0), mat.GetLength(1)];
+            
+            for(int i = 0; i < nodes.GetLength(0); i++)
+            {
+                
+                for(int j = 0; j < nodes.GetLength(1); j++)
+                {
+                    nodes[i, j] = new Node(mat[i, j]);
+                    if (j == mat.GetLength(1) - 1 && i != mat.GetLength(0) - 1) 
+                    {
+                        nodes[i, j].down = nodes[i + 1, j];
+                        continue;
+                    }
+                    else if(j == mat.GetLength(1) - 1 && i == mat.GetLength(0) - 1)
+                    {
+                        break;
+                    }
+
+                    if(i == mat.GetLength(0) - 1)
+                    {
+                        nodes[i, j].next = nodes[i, j + 1];
+                        continue;
+                    }
+                    nodes[i, j].next = nodes[i, j + 1];
+                    nodes[i, j].down = nodes[i + 1, j];
+                }
+            }
+
+            return nodes;
+        }
 
     }
 
